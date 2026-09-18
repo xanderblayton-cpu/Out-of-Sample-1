@@ -1,4 +1,3 @@
-# The site is plain static HTML that lives at the repo root, so there is
-# nothing to compile — publish the root directly.
 [build]
   publish = "."
+  command = ""
