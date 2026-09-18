@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The System · Out of Sample</title>
+<meta name="description" content="The full weekly method behind Out of Sample: four rules, a seven-stage pipeline, and the failure modes written down in advance.">
+<meta property="og:title" content="The System · Out of Sample">
+<meta property="og:description" content="The full weekly method behind Out of Sample: four rules, a seven-stage pipeline, and the failure modes written down in advance.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="site">
+  <div class="hd">
+    <a class="wordmark" href="index.html"><i></i>Out of Sample</a>
+    <nav class="main"><a href="index.html">Archive</a><a href="numbers.html">Numbers</a><a href="system.html" aria-current="page">The System</a><a href="about.html">About</a></nav>
+  </div>
+</header>
+
+
+<div class="wrap hero">
+  <p class="eyebrow">The System · v0.1</p>
+  <h1 class="big">How one person tests a claim properly <em>every week</em>.</h1>
+  <p class="lede">Checking a claim properly is slow and boring, which is why almost nobody does it.
+  This is the system that makes it fast enough to sustain.</p>
+</div>
+
+<div class="wrap">
+<section>
+  <div class="sec-head">
+    <p class="sec-kicker">Foundations</p>
+    <h2 class="sec-title">Four rules everything else depends on</h2>
+    <p class="sec-sub">Break one and the system quietly degrades into ordinary content.</p>
+  </div>
+  <div class="prose">
+    <h3>1. Pre-register the prediction</h3>
+    <p>Write down what you expect, with a confidence level, <strong>before</strong> running the test.
+    A prediction recorded afterward isn't a prediction. This is the cheapest possible defense against
+    retrofitting a story onto whatever the data happened to say.</p>
+
+    <h3>2. The boring-result test</h3>
+    <p>Before committing a week to a claim, ask whether the issue is still worth publishing if the
+    answer comes back unremarkable. If not, the claim is disqualified. Claims that only work when the
+    result is surprising are exactly the claims that produce dishonest research, because you will
+    find a way to make them surprising.</p>
+
+    <h3>3. Attack your own result first</h3>
+    <p>Every finding gets a pass whose only job is to break it. Whatever survives is publishable.
+    Whatever doesn't gets published as the weaker version.</p>
+
+    <h3>4. Ship the code</h3>
+    <p>Not a description of the method. The code. This is the credential, and it's the part
+    competitors won't copy, because publishing it makes you accountable.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <p class="sec-kicker">The weekly pipeline</p>
+    <h2 class="sec-title">Roughly six hours of human time</h2>
+    <p class="sec-sub">Automation carries the rest. The human time is spent where judgment is
+    actually required, which is choosing the question and interpreting the answer.</p>
+  </div>
+
+  <ol class="steps">
+    <li>
+      <h4>Wednesday · Claim harvest</h4>
+      <p>A scheduled job searches for claims people are actually making that week and returns five
+      candidates, each with the claim quoted from a real source, a proposed test, verified data
+      availability, and a recorded prediction.</p>
+      <p class="cost">Human time <b>zero</b> · fully automated</p>
+    </li>
+    <li>
+      <h4>Wednesday · Selection</h4>
+      <p>Read the five, pick one. The only question that matters is whether you'd publish the boring
+      version of the answer.</p>
+      <p class="cost">Human time <b>20 minutes</b></p>
+    </li>
+    <li>
+      <h4>Thursday · The test</h4>
+      <p>The analysis runs under the no-lookahead protocol: expanding-window parameters, lagged
+      signals, a burn-in period, costs charged on every switch, and non-overlapping versions computed
+      wherever overlapping windows would inflate the evidence.</p>
+      <p class="cost">Human time <b>30 minutes</b> · reviewing for things that look wrong</p>
+    </li>
+    <li>
+      <h4>Friday · The adversarial pass</h4>
+      <p>A separate run whose explicit job is to destroy Thursday's result. Sub-period split,
+      zero-cost rerun, parameter sweep, non-overlapping windows, partial version, effective sample
+      size.</p>
+      <p class="cost">Human time <b>20 minutes</b></p>
+    </li>
+    <li>
+      <h4>Saturday · Write</h4>
+      <p>All five sections get drafted. The human rewrites the judgment section, and checks that the
+      falsification section actually commits to something rather than hedging. Charts render from a
+      fixed script so every issue looks like the same publication.</p>
+      <p class="cost">Human time <b>3 hours</b> · morning maker block, phone off</p>
+    </li>
+    <li>
+      <h4>Sunday · Publish</h4>
+      <p>Issue ships, thread goes up with the charts, code is published alongside.</p>
+      <p class="cost">Human time <b>1 hour</b></p>
+    </li>
+    <li>
+      <h4>Monday · Log</h4>
+      <p>Record what shipped, how long it took, and whether the pre-registered prediction was right.
+      Prediction accuracy is itself a metric worth publishing once there's enough of it.</p>
+      <p class="cost">Human time <b>10 minutes</b></p>
+    </li>
+  </ol>
+</section>
+
+<section>
+  <div class="sec-head">
+    <p class="sec-kicker">Failure modes</p>
+    <h2 class="sec-title">What breaks this, written down so it's recognizable while it's happening</h2>
+  </div>
+  <div class="prose">
+    <div class="rules">
+      <div class="rule no"><span>&times;</span><p><strong>The format gets heavier every week.</strong> Issue 1 takes eight hours, issue 5 takes twelve, issue 9 never ships. The fix is cutting scope, not working more.</p></div>
+      <div class="rule no"><span>&times;</span><p><strong>Claims get picked for excitement.</strong> Rule 2 stops being applied, the archive fills with hot takes, the differentiator is gone.</p></div>
+      <div class="rule no"><span>&times;</span><p><strong>A result gets softened to stay interesting.</strong> The moment a caveat is trimmed because it weakens the headline, this is just content again.</p></div>
+      <div class="rule no"><span>&times;</span><p><strong>The schedule slips once.</strong> A fixed schedule is both a trust signal and a legal position. One skipped Sunday makes the second one easy.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <p class="sec-kicker">Change log</p>
+    <h2 class="sec-title">This system is version 0.1 and improves every week</h2>
+  </div>
+  <div class="prose">
+    <h4>v0.1 · 18 September 2026</h4>
+    <p>First written. Pipeline defined, four rules set, adversarial battery specified from what
+    actually ran on issue 001.</p>
+    <p style="color:var(--text-3)">Next under consideration: automating the Monday log, measuring
+    pre-registration accuracy over time, cutting the Saturday block below three hours, and finding a
+    data source that doesn't lag by three years.</p>
+  </div>
+</section>
+</div>
+
+
+<footer class="site">
+  <div class="wrap fgrid">
+    <div>
+      <p><b>Out of Sample</b> is written by Xander Blayton, a finance student at Lipscomb University,
+      Bloomberg Market Concepts certified. Not a registered investment adviser and not managing
+      money for anyone.</p>
+      <p>General market analysis published on a fixed weekly schedule. Nothing here is investment
+      advice or tailored to any individual's circumstances.</p>
+      <p>AI disclosure: research, backtesting and drafting are AI assisted. Every figure published
+      comes from code published alongside it.</p>
+    </div>
+    <div class="flinks">
+      <a href="index.html">Archive</a>
+      <a href="numbers.html">Numbers</a>
+      <a href="system.html">The System</a>
+      <a href="about.html">About &amp; Standards</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
